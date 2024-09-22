@@ -16,7 +16,7 @@
 
 1. Склонируйте репозиторий:
 ```bash
-   git clone  https://github.com/Slava4123/FastApiFinal.git;
+   git clone  https://github.com/Slava4123/FastAPI.git;
 
 #Создайте виртуальное окружение и активируйте его
 python -m venv venv
