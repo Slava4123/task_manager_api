@@ -20,11 +20,10 @@ class Task(Base):
     __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    title = Column(String, nullable=False)
-    description = Column(String, nullable=True)
+    title = Column(String(50), nullable=False)
+    description = Column(String(200), nullable=True)
     status = Column(String, nullable=False)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-
     # Связь с пользователем
     user = relationship('User', back_populates='tasks')
 

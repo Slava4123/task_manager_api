@@ -1,6 +1,15 @@
+"""
+Модуль для управления соединением с базой данных.
+
+Этот модуль содержит классы и функции, необходимые для создания
+и управления сессиями базы данных с использованием SQLAlchemy.
+Обеспечивает создание и настройку асинхронного подключения к базе данных.
+"""
+
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import SQLAlchemyError
 from .db import SessionLocal
+import loguru
 
 async def get_db() -> AsyncSession:
     """
@@ -19,6 +28,6 @@ async def get_db() -> AsyncSession:
         try:
             yield session
         except SQLAlchemyError as e:
-            # Здесь можно добавить логику обработки ошибок
-            print(f"Произошла ошибка: {e}")
+            loguru.logger.error(f"Произошла ошибка: {e}")
+            await session.rollback()  # Откатываем сессию вместо фиксации
             raise
