@@ -52,10 +52,10 @@ POST /auth/token: Получить токен для аутентификаци�
 # Curl Для User
 curl -X 'GET' \
   'http://127.0.0.1:8000/users' \
-  -H 'accept: application/json # Получим всех пользователей
+  -H 'accept: application/json' # Получим всех пользователей
 
 curl -X 'GET' \
-  'http://127.0.0.1:8000/users/2' \
+  'http://127.0.0.1:8000/users/3' \
   -H 'accept: application/json' # Получение определенного пользователя
 
 curl -X 'POST' \
@@ -63,13 +63,14 @@ curl -X 'POST' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "name": "string",
+  "name": "string2",
   "email": "user2@example.com",
-  "password": "string"
+  "password": "string2"
+}' # Создание пользователя
 
 }' # Создание польвателя (Создаться пользователь "name": "string", "email": "user2@example.com", "password": "string")
 curl - X 'PUT' \
-  'http://127.0.0.1:8000/users/4' \
+  'http://127.0.0.1:8000/users/2' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -79,7 +80,7 @@ curl - X 'PUT' \
 }' # Обновление информации о пользователе
 
 DELETE \
-  'http://127.0.0.1:8000/users/4' \
+  'http://127.0.0.1:8000/users/3' \
   -H 'accept: */*' # Удаление пользователя
 
 # Curl Для задач
