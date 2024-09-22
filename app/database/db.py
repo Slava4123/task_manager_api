@@ -1,15 +1,4 @@
-"""
-Этот файл настраивает подключение к базе данных и определяет базовую модель для SQLAlchemy.
-
-Он загружает переменные среды из файла `.env`, создает асинхронный движок базы данных
-и определяет создателя сессий для создания асинхронных сессий базы данных.
-
-Функция `check_connection` проверяет подключение к базе данных, выполняя простой запрос.
-Класс `Base` - это декларативный базовый класс для моделей SQLAlchemy.
-"""
-
 import os
-import loguru
 
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
@@ -18,10 +7,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# URL подключения к базе данных
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite+aiosqlite:///./test.db")
 
+# Создание асинхронного движка базы данных
 engine = create_async_engine(DATABASE_URL, echo=True)
 
+# Создание фабрики сессий
 SessionLocal = async_sessionmaker(
     bind=engine,
     class_=AsyncSession,
@@ -42,9 +34,9 @@ async def check_connection():
     try:
         async with engine.connect() as connection:
             await connection.execute(text("SELECT 1"))
-            loguru.logger.info("Подключение к базе данных успешно установлено.")
+            print("Подключение к базе данных успешно установлено.")
     except Exception as e:
-        loguru.logger.error(f"Ошибка подключения к базе данных: {e}")
+        print(f"Ошибка подключения к базе данных: {e}")
 
 class Base(DeclarativeBase):
     """
@@ -54,4 +46,3 @@ class Base(DeclarativeBase):
     Позволяет использовать декларативный стиль определения моделей.
     """
     pass
-

@@ -1,8 +1,7 @@
-"""Модели Pydantic для пользователя и задач"""
-
 from pydantic import BaseModel, EmailStr, constr
 from typing import Optional
 
+# Модели Pydantic для пользователя
 
 class ReadUser(BaseModel):
     """
@@ -15,8 +14,7 @@ class ReadUser(BaseModel):
     """
     id: int
     name: str
-    email: EmailStr
-
+    email: EmailStr  # Используем EmailStr для валидации email
 
 class CreateUser(BaseModel):
     """
@@ -28,11 +26,10 @@ class CreateUser(BaseModel):
         password (constr): Пароль пользователя, минимальная длина 5 символов.
     """
     name: str
-    email: EmailStr
-    password: constr(min_length=5)
+    email: EmailStr  # Используем EmailStr для валидации email
+    password: constr(min_length=5)  # Устанавливаем минимальную длину пароля
 
-
-
+# Модели Pydantic для задач
 
 class ReadTask(BaseModel):
     """
@@ -46,9 +43,8 @@ class ReadTask(BaseModel):
     """
     id: int
     title: str
-    description: Optional[str] = None
+    description: Optional[str] = None  # Поле description может быть None
     status: str
-
 
 class UpdateTask(BaseModel):
     """
@@ -57,8 +53,7 @@ class UpdateTask(BaseModel):
     Атрибуты:
         status (str): Статус задачи для обновления.
     """
-    status: str
-
+    status: str  # Позволяет обновить статус задачи
 
 class CreateTask(BaseModel):
     """
@@ -69,6 +64,6 @@ class CreateTask(BaseModel):
         description (Optional[str]): Описание задачи, может быть None.
         status (str): Статус задачи.
     """
-    title: str
-    description: Optional[str] = None
-    status: str
+    title: str  # Название задачи
+    description: Optional[str] = None  # Поле description может быть None
+    status: str  # Строка со статусом задачи

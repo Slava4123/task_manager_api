@@ -12,5 +12,5 @@ async def test_root():
     assert response.status_code == 200
     assert response.json() == {
         "status": "healthy",
-        "version": "1.0.0"
+        "timestamp": "2024-09-14T12:00:00Z"
     }

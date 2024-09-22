@@ -34,16 +34,11 @@ async def create_task(
     # Проверка на допустимый статус задачи
     if task.status not in ["Новая", "В процессе", "Завершена"]:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Недопустимый статус задачи")
-    if (await db.execute(select(Task).where(Task.title == task.title))).scalar_one_or_none():
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Задача с таким заголовком уже есть")
 
     db_task = Task(**task.dict(), user_id=user_id)
     db.add(db_task)
-    try:
-        await db.commit()
-    except Exception as e:
-        await db.rollback()
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Ошибка при добавлении задачи в базу данных")
+    await db.commit()
+    await db.refresh(db_task)
     return db_task
 
 @router.get('', response_model=List[ReadTask])
