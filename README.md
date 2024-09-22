@@ -16,11 +16,13 @@
 
 1. Склонируйте репозиторий:
 ```bash
-   git clone  https://github.com/Slava4123/FastAPI.git;
+   git clone  https://github.com/Slava4123/FastApiFinal.git;
 
 #Создайте виртуальное окружение и активируйте его
 python -m venv venv
    source venv/bin/activate  # Для Windows используйте `venv\Scripts\activate`
+poetry install
+
 #Создание миграций
 alembic init -t async app/migrations
 
@@ -32,16 +34,16 @@ uvicorn app.main:app --reload
 Аутентификация
 POST /auth/token: Получить токен для аутентификации.
 #Пользователи
-Список пользователейGET /usersВозвращает список всех пользователей.
-Получение пользователяGET /users/{user_id}Возвращает информацию о пользователе по его ID.
-Создание пользователяPOST /usersСоздает нового пользователя. Необходимо передать name, email, и password.
-Обновление пользователяPUT /users/{user_id}Обновляет информацию о пользователе.
-Удаление пользователяDELETE /users/{user_id}Удаляет пользователя.
+Список пользователей GET /users Возвращает список всех пользователей.
+Получение пользователя GET /users/{user_id} Возвращает информацию о пользователе по его ID.
+Создание пользователя POST /users Создает нового пользователя. Необходимо передать name, email, и password.
+Обновление пользователя PUT /users/{user_id} Обновляет информацию о пользователе.
+Удаление пользователя DELETE /users/{user_id} Удаляет пользователя.
 #Задачи
-Создание задачиPOST /tasksСоздает новую задачу. Необходимо передать данные задачи, включая status (можно использовать: "Новая", "В процессе", "Завершена").
-Получение задачGET /tasksВозвращает список задач, связанных с текущим пользователем.
-Обновление задачиPUT /tasks/{task_id}Обновляет информацию о задаче.
-Удаление задачиDELETE /tasks/{task_id}Удаляет задачу.
+Создание задачи POST /tasks Создает новую задачу. Необходимо передать данные задачи, включая status (можно использовать: "Новая", "В процессе", "Завершена").
+Получение задач GET /tasks Возвращает список задач, связанных с текущим пользователем.
+Обновление задачи PUT /tasks/{task_id} Обновляет информацию о задаче.
+Удаление задачи DELETE /tasks/{task_id} Удаляет задачу.
 
 #Использование
 Для тестирования API можно использовать инструменты, такие как Postman или cURL. Не забудьте передать пользователя JSON Web Token для доступа к защищенным маршрутам.
@@ -50,10 +52,10 @@ POST /auth/token: Получить токен для аутентификаци�
 # Curl Для User
 curl -X 'GET' \
   'http://127.0.0.1:8000/users' \
-  -H 'accept: application/json # Получим всех пользователей
+  -H 'accept: application/json' # Получим всех пользователей
 
 curl -X 'GET' \
-  'http://127.0.0.1:8000/users/2' \
+  'http://127.0.0.1:8000/users/3' \
   -H 'accept: application/json' # Получение определенного пользователя
 
 curl -X 'POST' \
@@ -61,13 +63,14 @@ curl -X 'POST' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "name": "string",
+  "name": "string2",
   "email": "user2@example.com",
-  "password": "string"
+  "password": "string2"
+}' # Создание пользователя
 
 }' # Создание польвателя (Создаться пользователь "name": "string", "email": "user2@example.com", "password": "string")
 curl - X 'PUT' \
-  'http://127.0.0.1:8000/users/4' \
+  'http://127.0.0.1:8000/users/2' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -77,19 +80,17 @@ curl - X 'PUT' \
 }' # Обновление информации о пользователе
 
 DELETE \
-  'http://127.0.0.1:8000/users/4' \
+  'http://127.0.0.1:8000/users/3' \
   -H 'accept: */*' # Удаление пользователя
 
 # Curl Для задач
 curl -X 'GET' \
   'http://127.0.0.1:8000/task' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJTbGF2YSIsImlkIjoxLCJleHAiOjE3MjY0MTA1NTB9.0l1soiUS1ZNdLUVnTra9cShBddO3f-tdakP43bAZqCg' # Посмотреть все задачи
-
+  
 curl -X 'POST' \
   'http://127.0.0.1:8000/task' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJTbGF2YSIsImlkIjoxLCJleHAiOjE3MjY0MTA1NTB9.0l1soiUS1ZNdLUVnTra9cShBddO3f-tdakP43bAZqCg' \
   -H 'Content-Type: application/json' \
   -d '{
   "title": "Проверка",
@@ -100,7 +101,6 @@ curl -X 'POST' \
 curl -X 'PUT' \
   'http://127.0.0.1:8000/task/6' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJTbGF2YSIsImlkIjoxLCJleHAiOjE3MjY0MTA1NTB9.0l1soiUS1ZNdLUVnTra9cShBddO3f-tdakP43bAZqCg' \
   -H 'Content-Type: application/json' \
   -d '{
   "status": "Завершена"
@@ -108,13 +108,11 @@ curl -X 'PUT' \
 
 curl -X 'DELETE' \
   'http://127.0.0.1:8000/task/6' \
+  -H 'accept: application/json'  # Удаление задачи
+
+#Получение ключа
+curl -X 'POST' \
+  'http://127.0.0.1:8000/auth/token' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJTbGF2YSIsImlkIjoxLCJleHAiOjE3MjY0MTA1NTB9.0l1soiUS1ZNdLUVnTra9cShBddO3f-tdakP43bAZqCg' # Удаление задачи
-
-
-
-
-
-
-
-"# FastAPI2Final" 
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -d 'grant_type=password&username=string&password=string&scope=&client_id=string&client_secret=string'
