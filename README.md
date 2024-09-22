@@ -87,12 +87,10 @@ DELETE \
 curl -X 'GET' \
   'http://127.0.0.1:8000/task' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJTbGF2YSIsImlkIjoxLCJleHAiOjE3MjY0MTA1NTB9.0l1soiUS1ZNdLUVnTra9cShBddO3f-tdakP43bAZqCg' # Посмотреть все задачи
-
+  
 curl -X 'POST' \
   'http://127.0.0.1:8000/task' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJTbGF2YSIsImlkIjoxLCJleHAiOjE3MjY0MTA1NTB9.0l1soiUS1ZNdLUVnTra9cShBddO3f-tdakP43bAZqCg' \
   -H 'Content-Type: application/json' \
   -d '{
   "title": "Проверка",
@@ -103,7 +101,6 @@ curl -X 'POST' \
 curl -X 'PUT' \
   'http://127.0.0.1:8000/task/6' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJTbGF2YSIsImlkIjoxLCJleHAiOjE3MjY0MTA1NTB9.0l1soiUS1ZNdLUVnTra9cShBddO3f-tdakP43bAZqCg' \
   -H 'Content-Type: application/json' \
   -d '{
   "status": "Завершена"
@@ -111,13 +108,11 @@ curl -X 'PUT' \
 
 curl -X 'DELETE' \
   'http://127.0.0.1:8000/task/6' \
+  -H 'accept: application/json'  # Удаление задачи
+
+#Получение ключа
+curl -X 'POST' \
+  'http://127.0.0.1:8000/auth/token' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJTbGF2YSIsImlkIjoxLCJleHAiOjE3MjY0MTA1NTB9.0l1soiUS1ZNdLUVnTra9cShBddO3f-tdakP43bAZqCg' # Удаление задачи
-
-
-
-
-
-
-
-"# FastAPI2Final" 
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -d 'grant_type=password&username=string&password=string&scope=&client_id=string&client_secret=string'
