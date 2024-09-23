@@ -2,6 +2,7 @@ from app.database.db import Base
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
+
 class User(Base):
     """
     Модель пользователя.
@@ -18,9 +19,9 @@ class User(Base):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String, nullable=False)
-    email = Column(String, nullable=False, unique=True)
-    password = Column(String, nullable=False)
+    name = Column(String(50), nullable=False)
+    email = Column(String(120), nullable=False, unique=True)
+    password = Column(String(128), nullable=False)
 
     # Связь с задачами
     tasks = relationship('Task', back_populates='user')

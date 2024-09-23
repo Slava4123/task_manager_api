@@ -1,8 +1,9 @@
-
 import pytest
 from httpx import AsyncClient
 from passlib.context import CryptContext
 from sqlalchemy.ext.asyncio import AsyncSession
+from starlette import status
+
 from app.main import app
 from app.models.users import User
 from app.database.db_session import get_db
@@ -35,12 +36,21 @@ async def db_session() -> AsyncSession:
 async def test_user(db_session: AsyncSession):
     user = User(name="testuser", password=get_password_hash('testpassword'),
                 email="testuser@mail.com")
+
     db_session.add(user)
     await db_session.commit()
     await db_session.refresh(user)
+
     yield user
-    await db_session.delete(user)
-    await db_session.commit()
+
+    try:
+        await db_session.delete(user)
+        await db_session.commit()
+    except Exception:
+        await db_session.rollback()
+        raise
+    finally:
+        await db_session.rollback()
 
 @pytest.fixture(scope="module")
 async def client() -> AsyncClient:
@@ -60,11 +70,13 @@ async def test_login(client: AsyncClient, test_user: User):
 @pytest.mark.asyncio
 async def test_read_current_user_without_token(client: AsyncClient):
     response = await client.get("/auth/read_current_user")
-    assert response.status_code == 401  # 401 Unauthorized
+    assert response.status_code == 401
 
 @pytest.mark.asyncio
 async def test_read_current_user_with_token(client: AsyncClient, test_user: User, access_token):
     response = await client.get("/auth/read_current_user", headers={"Authorization": f"Bearer {access_token}"})
     data = response.json()
-    # pprint(data)
-    assert "username" in data["User"]  # Убедитесь, что 'username' верно
+    assert "username" in data["User"]
+    assert data["User"]["username"] == test_user.name
+    assert response.status_code == status.HTTP_200_OK
+

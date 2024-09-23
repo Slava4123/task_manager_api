@@ -143,7 +143,7 @@ async def login(db: Annotated[AsyncSession, Depends(get_db)],
 
     token = await create_access_token(user.name,
                                       user.id,
-                                      expires_delta=timedelta(minutes=20))
+                                      expires_delta=timedelta(minutes=15))
     return {
         'access_token': token,
         'token_type': 'bearer'
