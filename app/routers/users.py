@@ -156,4 +156,4 @@ async def delete_user(db: Annotated[AsyncSession, Depends(get_db)], user_id: int
     await db.delete(user)
     await db.commit()
 
-    return
+    return {"detail": "Пользователь успешно удален"}

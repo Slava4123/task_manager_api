@@ -29,5 +29,5 @@ async def get_db() -> AsyncSession:
             yield session
         except SQLAlchemyError as e:
             loguru.logger.error(f"Произошла ошибка: {e}")
-            await session.rollback()  # Откатываем сессию вместо фиксации
+            await session.rollback()
             raise
