@@ -80,81 +80,77 @@
 # Пользователи
 
 ### Получение списка пользователей:
-### curl -X 'GET' \
-###   'http://127.0.0.1:8000/users' \
-###   -H 'accept: application/json'
+#### curl -X 'GET' \
+####   'http://127.0.0.1:8000/users' \
+####   -H 'accept: application/json'
   
 ### Получение информации о пользователе:
-### curl -X 'GET' \
-###   'http://127.0.0.1:8000/users/3' \
-###   -H 'accept: application/json'
+#### curl -X 'GET' \
+####   'http://127.0.0.1:8000/users/3' \
+####  -H 'accept: application/json'
   
 ### Создание пользователя:
-### curl -X 'POST' \
-###   'http://127.0.0.1:8000/users' \
-###   -H 'accept: application/json' \
-###   -H 'Content-Type: application/json' \
-###   -d '{
-###    "name": "string2",
-###    "email": "user2@example.com",
-###     "password": "string2"
-###   }'
+#### curl -X 'POST' \
+####  'http://127.0.0.1:8000/users' \
+####   -H 'accept: application/json' \
+####   -H 'Content-Type: application/json'\
+####   -d '{"name": "string2",
+####   "email": "user2@example.com",
+####     "password": "string2"}'
   
 ### Обновление информации о пользователе:
-### curl -X 'PUT' \
-###   'http://127.0.0.1:8000/users/2' \
-###   -H 'accept: application/json' \
-###   -H 'Content-Type: application/json' \
-###   -d '{
-###     "name": "Adrian",
-###     "email": "adrian@example.com",
-###     "password": "123456"
-###   }'
+#### curl -X 'PUT' \
+####   'http://127.0.0.1:8000/users/2' \
+####   -H 'accept: application/json' \
+####   -H 'Content-Type: application/json' \
+####   -d '{"name": "Adrian",
+####     "email": "adrian@example.com",
+####     "password": "123456"}'
   
 ### Удаление пользователя:
-### curl -X 'DELETE' \
-###   'http://127.0.0.1:8000/users/3' \
-###   -H 'accept: */*'
+#### curl -X 'DELETE' \
+####   'http://127.0.0.1:8000/users/3' \
+####   -H 'accept: */*'
   
   
 # Задачи
 
 ### Получение списка задач:
-### curl -X 'GET' \
-###   'http://
-###   'http://127.0.0.1:8000/auth/token' \
-###   -H 'accept: application/json' \
-###   -H 'Content-Type: application/x-www-form-urlencoded' \
-###   -d 'grant_type=password&username=string&password=string&scope=&client_id=string&client_secret=string'
-### http://127.0.0.1:8000/tasks \
-###      -H 'accept: application/json'
+#### curl -X 'GET' \
+####   'http://
+####   'http://127.0.0.1:8000/auth/token' \
+####  -H 'accept: application/json' \
+####   -H 'Content-Type: application/x-www-form-urlencoded' \
+####   -d 'grant_type=password&username=string&password=string&scope=&client_id=string&client_secret=string'
+#### http://127.0.0.1:8000/tasks \
+####      -H 'accept: application/json'
      
 ### Получение информации о задаче:
-### curl -X 'GET' \
-###      'http://127.0.0.1:8000/tasks/2' \
-###      -H 'accept: application/json'
+#### curl -X 'GET' \
+####      'http://127.0.0.1:8000/tasks/2' \
+####     -H 'accept: application/json'
      
 ### Создание задачи:
-### curl -X 'POST' \
-###      'http://127.0.0.1:8000/tasks' \
-###      -H 'accept: application/json' \
-###      -H 'Content-Type: application/json' \
-###      -d '{
-###        "title": "string",
-###        "description": "string",
-###        "status": "Новая"}'
+#### curl -X 'POST' \
+####      'http://127.0.0.1:8000/tasks' \
+####      -H 'accept: application/json' \
+####      -H 'Content-Type: application/json' \
+####      -d '{
+####        "title": "string",
+####        "description": "string",
+####        "status": "Новая"}'
      
 ### Обновление информации о задаче:
-### curl -X 'PUT' \
-###      'http://127.0.0.1:8000/tasks/2' \
-###      -H 'accept: application/json' \
-###      -H 'Content-Type: application/json' \
-###      -d '{
-###        "title": "Updated title",
-###        "description": "Updated description",
-###       "status": "В процессе"}'
+#### curl -X 'PUT' \
+####      'http://127.0.0.1:8000/tasks/2' \
+####      -H 'accept: application/json' \
+####      -H 'Content-Type: application/json' \
+####      -d '{
+####        "title": "Updated title",
+####        "description": "Updated   description","status": "В процессе"
+#### }'
      
 ### Удаление задачи:
-### curl -X 'DELETE' \
-###      'http://127.0.0.1:8000/tasks/2' \
-###      -H 'accept: */*'
+#### curl -X 'DELETE' \
+####      'http://127.0.0.1:8000/tasks/2' \
+####      -H 'accept: */*'
