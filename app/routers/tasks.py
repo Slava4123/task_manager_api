@@ -84,16 +84,16 @@ async def get_task_id(
     """
     user_id = user['id']  # Получаем ID пользователя
 
-    # Выполняем запрос на получение задачи
+
     query = select(Task).where(Task.id == task_id, Task.user_id == user_id)
     result = await db.execute(query)
-    task = result.scalars().first()  # Получаем первую задачу
+    task = result.scalars().first()
 
-    # Проверяем, была ли найдена задача
+
     if not task:
         raise HTTPException(status_code=404, detail="Задача не найдена")
 
-    return task  # Возвращаем задачу  # Возвращаем задачу
+    return task
 
 @router.put('/{task_id}', response_model=UpdateTask)
 async def update_task(

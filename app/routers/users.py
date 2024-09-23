@@ -78,7 +78,7 @@ async def create_user(db: Annotated[AsyncSession, Depends(get_db)], create_user:
     """
     hashed_password = bcrypt_context.hash(create_user.password)
 
-    # Создание нового экземпляра пользователя
+
     new_user = User(name=create_user.name, email=create_user.email, password=hashed_password)
 
     try:
@@ -86,7 +86,7 @@ async def create_user(db: Annotated[AsyncSession, Depends(get_db)], create_user:
         await db.commit()
         await db.refresh(new_user)
     except IntegrityError:
-        await db.rollback()  # Откатываем изменения в случае ошибки
+        await db.rollback()
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Пользователь с таким адресом электронной почты уже существует"
@@ -120,7 +120,7 @@ async def update_user(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Пользователь не найден')
 
     if update_user.password:
-        user.password = bcrypt_context.hash(update_user.password)  # Хешируем пароль
+        user.password = bcrypt_context.hash(update_user.password)
     user.name = update_user.name
     user.email = update_user.email
 
@@ -128,7 +128,7 @@ async def update_user(
         db.add(user)
         await db.commit()
     except IntegrityError:
-        await db.rollback()  # Откатываем изменения в случае ошибки
+        await db.rollback()
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Пользователь с таким адресом электронной почты уже существует"
@@ -156,4 +156,4 @@ async def delete_user(db: Annotated[AsyncSession, Depends(get_db)], user_id: int
     await db.delete(user)
     await db.commit()
 
-    return  # Возвращаем пустой ответ для 204 No Content
+    return
