@@ -16,39 +16,44 @@
 ## Установка
 
 1. **Склонируйте репозиторий**:
- 
+ ```
    git clone https://github.com/Slava4123/FastAPI.git
-   
+```   
 
 
 2. **Создайте виртуальное окружение и активируйте его**:
- 
+ ```
    python -m venv venv
+```
    # Для Linux/Mac
+   ```
    source venv/bin/activate
+```
    # Для Windows
+   ```
    venv\Scripts\activate
+```
    
 
 
 3. **Установите зависимости**:
- 
+ ```
    poetry install
-   
+   ```
 
 
 4. **Создайте миграции**:
- 
+ ```
    alembic init -t async app/migrations
-   
+   ```
 
 
 5. **Настройте базу данных**, внесите необходимые изменения в настройки подключения, если это необходимо.
 
 6. **Запустите приложение**:
- 
+ ```
    uvicorn app.main:app --reload
-   
+   ```
 
 
 ## Структура проекта
